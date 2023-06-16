@@ -23,7 +23,10 @@ const StyledButton = styled("button")(({ theme }) => ({
     background: (theme as any).palette.mode === "dark" ? "#202020" : "#F3F6F8",
   },
   "@media (max-width: 1024.95px)": {
-    width: "auto",
+    width: 48,
+    height: 40,
+    padding: 0,
+    margin: 0,
   },
 }));
 
@@ -52,7 +55,7 @@ const SquareButton = () => {
   };
 
   return (
-    <Box height="100%">
+    <>
       <StyledButton onClick={handleClick}>{currency}</StyledButton>
       <CurrencySelect
         id={id}
@@ -70,7 +73,7 @@ const SquareButton = () => {
           </CurrencyElement>
         ))}
       </CurrencySelect>
-    </Box>
+    </>
   );
 };
 

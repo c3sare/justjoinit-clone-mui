@@ -16,6 +16,7 @@ const PaperStyled = styled(Paper)(({ theme }) => ({
   paddingLeft: 24,
   "@media (max-width: 1024.95px)": {
     height: 40,
+    paddingLeft: 8,
   },
 }));
 

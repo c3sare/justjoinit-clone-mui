@@ -49,6 +49,11 @@ const Navigation: React.FC = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        sx={{
+          "@media (max-width: 1024.95px)": {
+            width: 40,
+          },
+        }}
       >
         <IconButton>
           <MenuIcon />

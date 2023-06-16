@@ -1,16 +1,22 @@
 "use client";
 
-import { ThemeProvider, createTheme } from "@mui/material";
+import {
+  Theme,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export const ColorModeContext = React.createContext({
-  mode: "light",
+  mode: "dark",
   setMode: (prevState: "light" | "dark"): void => {},
 });
 
 const ToggleColorMode: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [mode, setMode] = React.useState<"dark" | "light">("light");
+  const [mode, setMode] = useLocalStorage<"light" | "dark">("theme", "light");
 
   const theme = React.useMemo(
     () =>

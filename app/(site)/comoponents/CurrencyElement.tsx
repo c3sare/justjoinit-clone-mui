@@ -15,12 +15,13 @@ const StyledButton = styled(Button, {
   display: "flex",
   margin: "4px 16px",
   padding: "8px 16px",
+  textTransform: "none",
   backgroundColor: currentCurrency
     ? (theme as any).palette.mode === "dark"
       ? "rgb(57, 57, 57)"
       : "rgb(255, 248, 251)"
     : (theme as any).palette.mode === "dark"
-    ? "rgb(44, 44, 44)"
+    ? "transparent"
     : "rgb(255, 255, 255)",
   borderRadius: "12px",
   justifyContent: "space-between",
@@ -32,7 +33,10 @@ const StyledButton = styled(Button, {
     ? "rgba(255, 255, 255, 0.8)"
     : "rgb(55, 71, 79)",
   "&:hover": {
-    backgroundColor: "rgba(55, 71, 79, 0.04)",
+    backgroundColor:
+      (theme as any).palette.mode === "dark"
+        ? "#2C2C2C"
+        : "rgba(55, 71, 79, 0.04)",
   },
 }));
 
