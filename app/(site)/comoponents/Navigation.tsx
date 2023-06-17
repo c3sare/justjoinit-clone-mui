@@ -1,24 +1,27 @@
 "use client";
 import { Box, useTheme } from "@mui/material";
-import Header from "./Header";
+import Header from "./navigation/Header";
 import MenuIcon from "@mui/icons-material/Menu";
-import Nav from "./Nav";
-import MenuLink from "./MenuLink";
-import SquareButton from "./SquareButton";
-import ThemeSwitchButton from "./ThemeSwitchButton";
+import Nav from "./navigation/Nav";
+import MenuLink from "./navigation/MenuLink";
+import SquareButton from "./navigation/SquareButton";
+import ThemeSwitchButton from "./navigation/ThemeSwitchButton";
 import { ColorModeContext } from "./ToggleColorMode";
-import { useContext } from "react";
-import IconButton from "./IconButton";
-import Logo from "./Logo";
-import Description from "./Description";
-import Button from "./Button";
-import SignInButton from "./SignInButton";
+import { useContext, useState } from "react";
+import IconButton from "./navigation/IconButton";
+import Logo from "./navigation/Logo";
+import Description from "./navigation/Description";
+import Button from "../../../components/Button";
+import SignInButton from "./navigation/SignInButton";
 import Link from "next/link";
-import MenuLinksBox from "./MenuLinksBox";
+import MenuLinksBox from "./navigation/MenuLinksBox";
+import Sidebar from "./navigation/SidebarMenu/Sidebar";
+import { menuElements } from "@/data/menuElements";
 
 const Navigation: React.FC = () => {
   const theme = useTheme();
   const { mode, setMode } = useContext(ColorModeContext);
+  const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
   return (
     <Header>
@@ -32,12 +35,18 @@ const Navigation: React.FC = () => {
           theme={theme}
         />
         <MenuLinksBox>
-          <MenuLink href="/">Offers</MenuLink>
-          <MenuLink href="/brands">Brand Stories</MenuLink>
-          <MenuLink href="/geek">Geek</MenuLink>
-          <MenuLink href="/matchmaking">Matchmaking</MenuLink>
+          {menuElements.map((node) => (
+            <MenuLink key={node.title} href={node.href}>
+              {node.title}
+            </MenuLink>
+          ))}
         </MenuLinksBox>
-        <Button LinkComponent={Link} href="/add-offer">
+        <Button
+          LinkComponent={Link}
+          variant="outlined"
+          href="/add-offer"
+          sx={{ "@media (max-width: 1024.95px)": { display: "none" } }}
+        >
           Post a Job
         </Button>
         <SignInButton>Sign in</SignInButton>
@@ -55,9 +64,10 @@ const Navigation: React.FC = () => {
           },
         }}
       >
-        <IconButton>
+        <IconButton onClick={() => setIsOpenSidebar(true)}>
           <MenuIcon />
         </IconButton>
+        <Sidebar open={isOpenSidebar} setOpen={setIsOpenSidebar} />
       </Box>
     </Header>
   );

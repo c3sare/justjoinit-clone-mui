@@ -1,10 +1,9 @@
-import ButtonMui from "@mui/material/Button";
-import styled from "@emotion/styled";
+import Button from "../../../../components/Button";
 import React from "react";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SignInSelect from "./SignInSelect";
-import SignInSelectButton from "./SignInSelectButton";
+import SignInSelect from "./SignInElements/SignInSelect";
+import SignInSelectButton from "./SignInElements/SignInSelectButton";
 import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import { useTheme } from "@mui/material";
@@ -13,34 +12,6 @@ type SignInButtonProps = {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
-
-const Button = styled(ButtonMui)(() => ({
-  borderRadius: 99999,
-  height: 38,
-  padding: "6px 16px",
-  color: "white",
-  backgroundColor: "#f06292",
-  textTransform: "none",
-  marginLeft: 4,
-  marginRight: 18,
-  whiteSpace: "nowrap",
-  boxShadow: "none",
-  "&:hover": {
-    backgroundColor: "#ad1457",
-  },
-  "& > span": {
-    marginLeft: "0",
-  },
-  "@media (max-width: 1024.95px)": {
-    marginLeft: "auto",
-    marginRight: "10px",
-    padding: "4px 16px",
-    height: "auto",
-    "& svg": {
-      display: "none",
-    },
-  },
-}));
 
 const SignInButton: React.FC<SignInButtonProps> = ({ children }) => {
   const theme = useTheme();
@@ -63,6 +34,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ children }) => {
     <>
       <Button
         variant="contained"
+        color="secondary"
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >
