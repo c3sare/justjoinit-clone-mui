@@ -15,6 +15,17 @@ const Button = styled(ButtonMui)(({ theme, variant, color }) => ({
   textTransform: "none",
   transition:
     "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+  ...(variant === "contained"
+    ? {
+        "@media (max-width: 1024.95px)": {
+          height: "calc(100% - 5px)",
+          marginLeft: "auto",
+          "& > .MuiButton-endIcon": {
+            display: "none",
+          },
+        },
+      }
+    : {}),
 }));
 
 export default Button;

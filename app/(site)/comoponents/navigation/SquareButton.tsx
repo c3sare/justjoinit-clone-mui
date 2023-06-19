@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 import React, { useState } from "react";
-import CurrencySelect from "./CurrencySelect";
-import CurrencyElement from "./CurrencyElement";
+import CurrencySelect from "./Currency/CurrencySelect";
+import CurrencyElement from "./Currency/CurrencyElement";
 
 const StyledButton = styled("button")(({ theme }) => ({
   display: "block",

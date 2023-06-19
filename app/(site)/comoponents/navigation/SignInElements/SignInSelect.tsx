@@ -5,7 +5,7 @@ const PopoverStyled = styled(Popover)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   ".MuiPopover-paper": {
-    margin: "16px 16px 0px 0px",
+    margin: "32px 16px 0px 0px",
     padding: "8px 16px",
     backgroundColor:
       (theme as any).palette.mode === "dark" ? "#121212" : "#ffffff",

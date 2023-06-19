@@ -27,6 +27,10 @@ const LinkStyled = styled(Link)(({ theme }) => ({
         : "#37474f",
     width: 120,
   },
+  "@media (max-width: 1024.95px)": {
+    width: 88,
+    height: 25,
+  },
 }));
 
 const Logo = () => {
