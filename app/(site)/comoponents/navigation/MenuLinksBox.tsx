@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 
-const BoxStyled = styled(Box)(() => ({
-  "@media (max-width: 1024.95px)": {
+const BoxStyled = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("laptop")]: {
     display: "none",
   },
 }));

@@ -50,7 +50,7 @@ const ThemeSwitchButton = styled(Switch)(({ theme }) => ({
       (theme as any).palette.mode === "dark" ? "#202020" : "#E4E8F0",
     borderRadius: 20,
   },
-  "@media (max-width: 1024.95px)": {
+  [(theme as any).breakpoints.down("laptop")]: {
     marginLeft: 0,
   },
 }));

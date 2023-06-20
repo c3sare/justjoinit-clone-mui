@@ -4,14 +4,14 @@ import Header from "./navigation/Header";
 import MenuIcon from "@mui/icons-material/Menu";
 import Nav from "./navigation/Nav";
 import MenuLink from "./navigation/MenuLink";
-import SquareButton from "./navigation/SquareButton";
+import CurrencySwitch from "./navigation/CurrencySwitch";
 import ThemeSwitchButton from "./navigation/ThemeSwitchButton";
 import { ColorModeContext } from "./ToggleColorMode";
 import { useContext, useState } from "react";
 import IconButton from "./navigation/IconButton";
 import Logo from "./navigation/Logo";
 import Description from "./navigation/Description";
-import Button from "../../../components/Button";
+import Button from "@mui/material/Button";
 import SignInButton from "./navigation/SignInButton";
 import Link from "next/link";
 import MenuLinksBox from "./navigation/MenuLinksBox";
@@ -20,7 +20,7 @@ import { menuElements } from "@/data/menuElements";
 
 const Navigation: React.FC = () => {
   const theme = useTheme();
-  const { mode, setMode } = useContext(ColorModeContext);
+  const { mode, handleToggleColorMode } = useContext(ColorModeContext);
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
 
   return (
@@ -31,7 +31,7 @@ const Navigation: React.FC = () => {
         <Description>#1 Job Board for tech industry in Europe</Description>
         <ThemeSwitchButton
           checked={mode === "dark"}
-          onChange={(e) => setMode(e.target.checked ? "dark" : "light")}
+          onChange={handleToggleColorMode}
           theme={theme}
         />
         <MenuLinksBox>
@@ -45,12 +45,12 @@ const Navigation: React.FC = () => {
           LinkComponent={Link}
           variant="outlined"
           href="/add-offer"
-          sx={{ "@media (max-width: 1024.95px)": { display: "none" } }}
+          sx={{ [theme.breakpoints.down("laptop")]: { display: "none" } }}
         >
           Post a Job
         </Button>
         <SignInButton>Sign in</SignInButton>
-        <SquareButton />
+        <CurrencySwitch />
       </Nav>
       <Box
         width="68px"
@@ -59,7 +59,7 @@ const Navigation: React.FC = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          "@media (max-width: 1024.95px)": {
+          [theme.breakpoints.down("laptop")]: {
             width: 40,
           },
         }}

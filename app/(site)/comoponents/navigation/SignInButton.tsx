@@ -1,4 +1,4 @@
-import Button from "../../../../components/Button";
+import Button from "@mui/material/Button";
 import React from "react";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -37,6 +37,15 @@ const SignInButton: React.FC<SignInButtonProps> = ({ children }) => {
         color="secondary"
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        sx={{
+          marginLeft: "auto",
+          [theme.breakpoints.down("laptop")]: {
+            height: "calc(100% - 6px)",
+            "& > .MuiButton-endIcon": {
+              display: "none",
+            },
+          },
+        }}
       >
         {children}
       </Button>

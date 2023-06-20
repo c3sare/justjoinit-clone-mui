@@ -2,21 +2,20 @@ import { Box, Typography, styled, useTheme } from "@mui/material";
 import IconButton from "../../IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Div = styled(Box)`
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px;
-  padding-bottom: 8px;
-  z-index: 1500;
-  background-color: transparent;
-
-  @media (max-width: 1024.95px) {
-    padding-bottom: 8px;
-  }
-`;
+const Div = styled(Box)(({ theme }) => ({
+  position: "sticky",
+  top: 0,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "24px",
+  paddingBottom: "8px",
+  zIndex: 1500,
+  backgroundColor: "transparent",
+  [theme.breakpoints.down("laptop")]: {
+    paddingBottom: "8px",
+  },
+}));
 
 const Text = styled(Typography)(({ theme }) => ({
   color: theme.palette.mode === "dark" ? "rgba(255,255,255,.80)" : "#37474f",

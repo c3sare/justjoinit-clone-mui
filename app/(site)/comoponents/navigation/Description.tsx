@@ -7,7 +7,7 @@ const TypographyStyled = styled("p")(({ theme }) => ({
       ? "rgba(255,255,255,.80)"
       : "#99A1AB",
   fontSize: "0.875rem",
-  "@media (max-width: 1024.95px)": {
+  [(theme as any).breakpoints.down("laptop")]: {
     display: "none",
   },
 }));

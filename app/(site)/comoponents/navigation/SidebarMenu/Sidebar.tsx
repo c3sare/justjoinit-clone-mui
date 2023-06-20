@@ -2,12 +2,15 @@ import Drawer from "@mui/material/Drawer";
 import Head from "./components/SidebarHeading";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { menuElements, sidebarMenuElements } from "@/data/menuElements";
+import {
+  helpSidebarElements,
+  menuElements,
+  sidebarMenuElements,
+} from "@/data/menuElements";
 import {
   Box,
   Collapse,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   useTheme,
 } from "@mui/material";
@@ -15,9 +18,6 @@ import Link from "next/link";
 import { Divider } from "@mui/material";
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import RssFeedIcon from "@mui/icons-material/RssFeed";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import SignInSelectButton from "../SignInElements/SignInSelectButton";
 import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
@@ -26,6 +26,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import IconButton from "@mui/material/IconButton";
+import SidebarListItemButton from "./components/SidebarListItemButton";
 
 type SidebarProps = {
   open: boolean;
@@ -33,7 +34,10 @@ type SidebarProps = {
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
-  const theme = useTheme();
+  const {
+    palette: { mode },
+    breakpoints,
+  } = useTheme();
   const [openMore, setOpenMore] = useState<boolean>(false);
 
   const closeDrawer = () => {
@@ -44,12 +48,16 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
     setOpenMore(!openMore);
   };
 
-  const sidebarMoreElements = sidebarMenuElements.map((item) => (
+  const isDarkMode = mode === "dark";
+
+  const sidebarMoreElements = sidebarMenuElements.map((item, i) => (
     <ListItem key={item.href} disablePadding>
-      <ListItemButton LinkComponent={Link} href={item.href}>
-        <ListItemIcon>{item.icon}</ListItemIcon>
-        <ListItemText primary={item.title} />
-      </ListItemButton>
+      <SidebarListItemButton
+        key={i}
+        title={item.title}
+        icon={item.icon}
+        href={item.href}
+      />
     </ListItem>
   ));
 
@@ -62,38 +70,55 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         "& > .MuiPaper-root": {
           width: "320px",
           maxWidth: "100%",
+          backgroundImage: "none",
         },
       }}
     >
       <Head onClickButton={closeDrawer} />
       <List
         sx={{
-          "@media (min-width: 1024.96px)": {
+          [breakpoints.up("laptop")]: {
             display: "none",
           },
         }}
       >
-        {menuElements.map((item) => (
-          <ListItemButton
-            key={item.title}
-            LinkComponent={Link}
+        {menuElements.map((item, i) => (
+          <SidebarListItemButton
+            key={i}
+            title={item.title}
+            icon={item.icon}
             href={item.href}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.title} />
-          </ListItemButton>
+          />
         ))}
       </List>
       <List
         sx={{
-          "@media (min-width: 1024.96px)": {
+          [breakpoints.up("laptop")]: {
             display: "none",
           },
         }}
       >
         <Divider sx={{ borderWidth: "4px" }} />
-        <ListItemButton onClick={handleToggleMoreMenuItems}>
-          <ListItemText primary="More" />
+        <ListItemButton
+          onClick={handleToggleMoreMenuItems}
+          sx={{
+            marginTop: "10px",
+            marginBottom: "4px",
+            "&:hover": {
+              backgroundColor: isDarkMode ? "#202020" : "#F3F6F8",
+            },
+          }}
+        >
+          <ListItemText
+            primary="More"
+            sx={{
+              "& > span": {
+                fontWeight: 600,
+                color: isDarkMode ? "#9e9e9e" : "#5F656B",
+                fontSize: "0.875rem",
+              },
+            }}
+          />
           {openMore ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openMore} timeout="auto" unmountOnExit>
@@ -105,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
       </List>
       <List
         sx={{
-          "@media (max-width: 1024.95px)": {
+          [breakpoints.down("laptop")]: {
             display: "none",
           },
         }}
@@ -114,32 +139,15 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         <Divider sx={{ borderWidth: "4px" }} />
       </List>
       <List>
-        <ListItemButton
-          LinkComponent={Link}
-          href="/feed.atom"
-          sx={{
-            "@media (max-width: 1024.95px)": {
-              display: "none",
-            },
-          }}
-        >
-          <ListItemIcon>
-            <RssFeedIcon />
-          </ListItemIcon>
-          <ListItemText primary="RSS" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <HelpOutlineOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Help" />
-        </ListItemButton>
-        <ListItemButton LinkComponent={Link} href="/terms-and-privacy-policies">
-          <ListItemIcon>
-            <DifferenceOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Terms" />
-        </ListItemButton>
+        {helpSidebarElements.map((item, i) => (
+          <SidebarListItemButton
+            key={i}
+            title={item.title}
+            href={item.href}
+            icon={item.icon}
+            hideMobile={item.hideMobile}
+          />
+        ))}
       </List>
       <Box
         sx={{
@@ -153,10 +161,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
           href="/devs"
           sx={{
             "& .MuiButton-startIcon": {
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgb(57, 57, 57)"
-                  : "rgb(255, 248, 251)",
+              backgroundColor: isDarkMode
+                ? "rgb(57, 57, 57)"
+                : "rgb(255, 248, 251)",
               "& svg": {
                 color: "rgb(255, 64, 129)",
               },
@@ -169,7 +176,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
           startIcon={<WorkOutlineOutlinedIcon />}
           href="/users/sign_in"
           sx={{
-            "@media (max-width: 1024.95px)": {
+            [breakpoints.down("laptop")]: {
               display: "none",
             },
             "& .MuiButton-startIcon": {
@@ -185,7 +192,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
       </Box>
       <Box
         sx={{
-          "@media (max-width: 1024.95px)": {
+          [breakpoints.down("laptop")]: {
             display: "none",
           },
         }}

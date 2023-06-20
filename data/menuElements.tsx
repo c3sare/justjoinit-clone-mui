@@ -12,6 +12,9 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import RocketLaunchOutlinedIcon from "@mui/icons-material/RocketLaunchOutlined";
+import RssFeedIcon from "@mui/icons-material/RssFeed";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 
 export const menuElements = [
   {
@@ -81,5 +84,26 @@ export const sidebarMenuElements = [
     title: "Careers",
     href: "/brands/story/just-join-it",
     icon: <RocketLaunchOutlinedIcon />,
+  },
+];
+
+export const helpSidebarElements = [
+  {
+    title: "RSS",
+    href: "/feed.atom",
+    icon: <RssFeedIcon />,
+    hideMobile: true,
+  },
+  {
+    title: "Help",
+    href: "/help",
+    icon: <HelpOutlineOutlinedIcon />,
+    hideMobile: false,
+  },
+  {
+    title: "Terms",
+    href: "/terms-and-privacy-policies",
+    icon: <DifferenceOutlinedIcon />,
+    hideMobile: false,
   },
 ];

@@ -27,7 +27,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
         : "#37474f",
     width: 120,
   },
-  "@media (max-width: 1024.95px)": {
+  [(theme as any).breakpoints.down("laptop")]: {
     width: 88,
     height: 25,
   },
